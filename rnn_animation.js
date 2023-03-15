@@ -1,82 +1,64 @@
-let rnnNodes = [];
-let rnnEdges = [];
+let neurons = [];
+let connections = [];
+let numNeurons = 10;
+let timeStep = 0;
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+  createCanvas(800, 400);
+  let neuronRadius = 30;
+  let neuronSpacing = (width - numNeurons * neuronRadius * 2) / (numNeurons + 1);
 
-    let numInputNodes = 3;
-    let numHiddenNodes = 4;
-    let numOutputNodes = 2;
+  for (let i = 0; i < numNeurons; i++) {
+    let x = neuronSpacing * (i + 1) + neuronRadius * 2 * i;
+    let y = height / 2;
+    neurons.push(new Neuron(x, y, neuronRadius));
+  }
 
-    let nodeSize = 30;
-    let verticalSpacing = 60;
-    let horizontalSpacing = 100;
-
-    for (let i = 0; i < numInputNodes; i++) {
-        rnnNodes.push(new Node(width / 4, (i + 1) * verticalSpacing, nodeSize, 'Input'));
-    }
-
-    for (let i = 0; i < numHiddenNodes; i++) {
-        rnnNodes.push(new Node(width / 2, (i + 1) * verticalSpacing - (numHiddenNodes - numInputNodes) * verticalSpacing / 2, nodeSize, 'Hidden'));
-    }
-
-    for (let i = 0; i < numOutputNodes; i++) {
-        rnnNodes.push(new Node(3 * width / 4, (i + 1) * verticalSpacing + (numInputNodes - numOutputNodes) * verticalSpacing / 2, nodeSize, 'Output'));
-    }
-
-    for (let i = 0; i < numInputNodes; i++) {
-        for (let j = numInputNodes; j < numInputNodes + numHiddenNodes; j++) {
-            rnnEdges.push(new Edge(rnnNodes[i], rnnNodes[j]));
-        }
-    }
-
-    for (let i = numInputNodes; i < numInputNodes + numHiddenNodes; i++) {
-        for (let j = numInputNodes + numHiddenNodes; j < rnnNodes.length; j++) {
-            rnnEdges.push(new Edge(rnnNodes[i], rnnNodes[j]));
-        }
-    }
+  for (let i = 0; i < neurons.length - 1; i++) {
+    let n1 = neurons[i];
+    let n2 = neurons[i + 1];
+    connections.push(new Connection(n1, n2));
+  }
 }
 
 function draw() {
-    background(240);
-
-    for (let node of rnnNodes) {
-        node.show();
-    }
-
-    for (let edge of rnnEdges) {
-        edge.show();
-    }
+  background(255);
+  for (let neuron of neurons) {
+    neuron.update();
+    neuron.display();
+  }
+  for (let connection of connections) {
+    connection.display();
+  }
+  timeStep += 0.1;
 }
 
-class Node {
-    constructor(x, y, size, type) {
-        this.x = x;
-        this.y = y;
-        this.size = size;
-        this.type = type;
-    }
+class Neuron {
+  constructor(x, y, r) {
+    this.x = x;
+    this.y = y;
+    this.r = r;
+  }
 
-    show() {
-        fill(255);
-        stroke(0);
-        ellipse(this.x, this.y, this.size);
+  update() {
+    this.y = height / 2 + 50 * sin(timeStep + this.x / 100);
+  }
 
-        textSize(14);
-        textAlign(CENTER, CENTER);
-        fill(0);
-        text(this.type, this.x, this.y + this.size / 2 + 20);
-    }
+  display() {
+    fill(50, 100, 200);
+    ellipse(this.x, this.y, this.r * 2, this.r * 2);
+  }
 }
 
-class Edge {
-    constructor(startNode, endNode) {
-        this.startNode = startNode;
-        this.endNode = endNode;
-    }
+class Connection {
+  constructor(n1, n2) {
+    this.n1 = n1;
+    this.n2 = n2;
+  }
 
-    show() {
-        stroke(0);
-        line(this.startNode.x, this.startNode.y, this.endNode.x, this.endNode.y);
-    }
+  display() {
+    stroke(0, 100, 200);
+    strokeWeight(2);
+    line(this.n1.x, this.n1.y, this.n2.x, this.n2.y);
+  }
 }
