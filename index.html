@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matthew Tilley PhD | Postdoc at UChicago </title>
+    <title>Matthew Tilley PhD | Postdoc at UChicago</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="#">Matthew Tilley PhD</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="#about">About</a>
                         </li>
                         <li class="nav-item">
@@ -35,31 +35,66 @@
             </div>
         </nav>
     </header>
-  <section id="hero" class="d-flex align-items-center">
-    <div class="container text-center">
-        <h1>Matthew Tilley PhD</h1>
-        <h2>Post Doc, Computational Neuroscience</h2>
-    </div>
-</section>
-    
-<section id="about" class="container">
-    <div class="row">
-        <div class="col-lg-6">
-            <!--img src="profile.jpg" alt="Matthew Tilley" class="img-fluid"-->
+    <section id="hero" class="d-flex align-items-center">
+        <div class="container text-center">
+            <h1>Matthew Tilley PhD</h1>
+            <h2>Post Doc, Computational Neuroscience</h2>
         </div>
-        <div class="col-lg-6">
-            <h3>About Matthew</h3>
-            <p>
-                More Here
-            </p>
-            <p>
-                More stuff
-            </p>
+    </section>
+
+    <section id="about" class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <img src="profile.jpg" alt="Matthew Tilley" class="img-fluid">
+            </div>
+            <div class="col-lg-6">
+                <h3>About Matthew</h3>
+                <p>
+                    Matthew Tilley is a Postdoctoral Researcher in Computational Neuroscience at the University of Chicago. He earned his PhD in Neuroscience from the XYZ University, where he focused on artificial neural networks and their applications in understanding complex brain functions.
+                </p>
+                <p>
+                    Matthew's research interests include developing novel machine learning algorithms to better understand the neural basis of cognition and behavior. He is currently working on a project exploring the role of context-dependent gating in artificial neuronal ensembles.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="projects" class="container">
+        <h3>Projects</h3>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <img src="project1.jpg" alt="Project 1" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Project 1</h5>
+                        <p class="card-text">Description of Project 1</p>
+                        <a href="https://github.comm-j-tilley/project1" target="_blank" class="btn btn-primary">View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+        <div class="col-lg-4">
+            <div class="card">
+            <img src="project2.jpg" alt="Project 2" class="card-img-top">
+                <div class="card-body">
+                <h5 class="card-title">Project 2</h5>
+                <p class="card-text">Description of Project 2</p>
+                <a href="https://github.com/m-j-tilley/project2" target="_blank" class="btn btn-primary">View on GitHub</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+            <img src="project3.jpg" alt="Project 3" class="card-img-top">
+                <div class="card-body">
+                <h5 class="card-title">Project 3</h5>
+                <p class="card-text">Description of Project 3</p>
+                <a href="https://github.com/m-j-tilley/project3" target="_blank" class="btn btn-primary">View on GitHub</a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-</section>
 <section id="publications" class="container">
     <h3>Publications</h3>
     <ul>
@@ -68,8 +103,8 @@
 </section>
 <section id="contact" class="container">
     <h3>Contact</h3>
-    <p>Feel free contact me:</p>
-    <p>Email: <a href="mailto:mjtilley@uchicago*dot*edu">mjtilley@uchicago*dot*edu</a></p>
+    <p>Feel free to contact me:</p>
+    <p>Email: <a href="mailto:mjtilley@uchicago.edu">mjtilley@uchicago.edu</a></p>
     <p>LinkedIn: <a href="https://www.linkedin.com/in/matthew-tilley-342722170/" target="_blank">linkedin.com/in/matthewtilley</a></p>
     <p>GitHub: <a href="https://github.com/m-j-tilley" target="_blank">github.com/matthewtilley</a></p>
 </section>
@@ -96,8 +131,7 @@
                 easing: 'easeOutExpo',
                 duration: 800,
                 delay: 100,
-                offset: '-=600'
-            });
+                offset: '-=600'});
 
         let navbar = document.querySelector('.navbar');
         window.addEventListener('scroll', function() {
@@ -107,6 +141,18 @@
                 navbar.classList.remove('bg-light');
             }
         });
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        for (const link of navLinks) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                const target = document.getElementById(event.target.getAttribute('href').substring(1));
+                window.scrollTo({
+                    top: target.offsetTop - navbar.offsetHeight,
+                    behavior: 'smooth'
+                });
+            });
+        }
     });
 </script>
 </body>
