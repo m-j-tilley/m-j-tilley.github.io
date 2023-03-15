@@ -59,17 +59,55 @@
     </div>
 </section>
 
-<section id="projects" class="container">
-    <h3>Projects</h3>
-    <div class="row">
-        <!-- Add your project cards here -->
-        <!-- Example:
-        <div class="col-md-4">
-            <div class="card">
-                <img src="project-image.jpg" alt="Project Image" class="card-img-top">
-                <div class="card-body">
-                    <h4 class="card-title">Project Title</h4>
-                    <p class="card-text">Project description...</p>
-                    <a href="https://github.com/username/project" class="btn btn-primary">View on GitHub</a
+</section>
+<section id="publications" class="container">
+    <h3>Publications</h3>
+    <ul>
+        <li><a href="https://arxiv.org/abs/2301.07187">Artificial Neuronal Ensembles with Learned Context Dependent Gating</a>, ICLR, 2023</li>
+    </ul>
+</section>
+<section id="contact" class="container">
+    <h3>Contact</h3>
+    <p>Feel free contact me:</p>
+    <p>Email: <a href="mailto:mjtilley@uchicago*dot*edu">mjtilley@uchicago*dot*edu</a></p>
+    <p>LinkedIn: <a href="https://www.linkedin.com/in/matthew-tilley-342722170/" target="_blank">linkedin.com/in/matthewtilley</a></p>
+    <p>GitHub: <a href="https://github.com/m-j-tilley" target="_blank">github.com/matthewtilley</a></p>
+</section>
+<footer class="bg-light text-center py-3">
+    <p>&copy; 2023 Matthew Tilley</p>
+</footer>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        anime.timeline({loop: false})
+            .add({
+                targets: '#hero h1',
+                translateY: [-100, 0],
+                easing: 'easeOutExpo',
+                duration: 800,
+                delay: 100
+            })
+            .add({
+                targets: '#hero h2',
+                translateY: [-100, 0],
+                easing: 'easeOutExpo',
+                duration: 800,
+                delay: 100,
+                offset: '-=600'
+            });
 
-
+        let navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-light');
+            } else {
+                navbar.classList.remove('bg-light');
+            }
+        });
+    });
+</script>
+</body>
+</html>
