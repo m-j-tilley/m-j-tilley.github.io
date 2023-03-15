@@ -47,7 +47,28 @@ function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
+function checkCollision() {
+  const head = snake[0];
+  for (let i = 1; i < snake.length; i++) {
+    if (snake[i].x === head.x && snake[i].y === head.y) {
+      return true;
+    }
+  }
+
+  return head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height;
+}
+
+function gameOver() {
+  clearInterval(gameLoop);
+  alert("Game Over!");
+}
+
 function draw() {
+  if (checkCollision()) {
+    gameOver();
+    return;
+  }
+
   clearCanvas();
   drawSnake();
   drawFood();
@@ -57,22 +78,30 @@ function draw() {
 document.addEventListener("keydown", event => {
   switch (event.keyCode) {
     case 37:
-      dx = -20;
-      dy = 0;
+      if (dx !== 20) {
+        dx = -20;
+        dy = 0;
+      }
       break;
     case 38:
-      dx = 0;
-      dy = -20;
+      if (dy !== 20) {
+        dx = 0;
+        dy = -20;
+      }
       break;
     case 39:
-      dx = 20;
-      dy = 0;
+      if (dx !== -20) {
+        dx = 20;
+        dy = 0;
+      }
       break;
     case 40:
-      dx = 0;
-      dy = 20;
+      if (dy !== -20) {
+        dx = 0;
+        dy = 20;
+      }
       break;
   }
 });
 
-setInterval(draw, 100);
+const gameLoop = setInterval(draw, 100);
